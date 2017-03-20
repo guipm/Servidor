@@ -1,35 +1,40 @@
 package servidor;
 
-
-
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.PrintStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import java.io.ObjectOutputStream;
-
 /**
  * @author guilherme Mendes
  * Data 18/03/2017
  */
 public class Servidor implements Runnable {
     ServerSocket server;
-    private String mensagem;
-    private int porta;
-    
+//    private String mensagem;
+    private int porta;    
     /**
      *
      * @param porta_
      * @throws Exception
      */
     //Inicializado do Servidor
-    public Servidor(int porta_,String mensagem_)throws Exception{
+    public Servidor(int porta_)throws Exception{
+        
         this.porta = porta_;
-        this.mensagem = mensagem_;
         ServerSocket server = new ServerSocket(porta_);
         new Thread(this).start();
+     //   Socket socket = server.accept();
         JOptionPane.showMessageDialog(null, "Servidor aguardando conexao para a porta :" + porta_);
-        //.out.println("Servidor aguardando coexao para a porta :" + porta_);
+        
+
     }
     //geters
     public int getPorta(){
@@ -40,35 +45,45 @@ public class Servidor implements Runnable {
         this.porta = porta_;
     }
     //Manter Servidor Ativo
-    public void rum(){
-        try{
-            while(true){
-                new TrataCliente(server.accept()).start();
-                }
-            }catch(Exception e){
-                    e.printStackTrace();
-                    System.exit(1);
-                }
-        }
-
-    @Override
-    public void run() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
-    class TrataCliente extends Thread{
-       private Socket cliente;
-       
-       public TrataCliente(Socket s){
-           cliente = s;
-       }
-       public void rum(){
+       @Override
+       public void run(){
            try{
-               System.out.println("Conectado ao Cliente");   
+                while(true){
+                    new MensagemCliente(server.accept()).start();
+              // System.out.println("Conectado ao Cliente"); 
+                }
            }catch (Exception e){
-               JOptionPane.showMessageDialog(null,"Ocorreu um erro");
+               JOptionPane.showMessageDialog(null,"Ocorreu um erro aqui");
                System.exit(1);
            }
+       } 
+       
+    class MensagemCliente extends Thread{
+       private Socket dados;
+       
+       public MensagemCliente(Socket s){
+           dados = s;
+       }
+       
+       public void run(){
+            try {
+               InputStream input = dados.getInputStream();
+               OutputStream output = dados.getOutputStream();
+        
+               BufferedReader in = new BufferedReader(new InputStreamReader(input));
+               PrintStream out = new PrintStream (output);
+          
+               String mensagem = in.readLine();
+               new ArquivoLog(mensagem);
+
+               in.close();
+               out.close();
+               dados.close();
+               
+            } catch (IOException ex) {
+               JOptionPane.showMessageDialog(null,"Ocorreu um erro TextoCliente");
+               Logger.getLogger(Servidor.class.getName()).log(Level.SEVERE, null, ex);
+           }           
        }
     }     
 }

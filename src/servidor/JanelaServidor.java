@@ -28,10 +28,8 @@ public class JanelaServidor extends javax.swing.JFrame {
     private void initComponents() {
 
         jButtonConfirmar = new javax.swing.JButton();
-        jTextFieldMensagem = new javax.swing.JTextField();
         jTextFieldPorta = new javax.swing.JTextField();
         jLabelPorta = new javax.swing.JLabel();
-        jLabelMensagem = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Servidor");
@@ -44,40 +42,22 @@ public class JanelaServidor extends javax.swing.JFrame {
             }
         });
 
-        jTextFieldMensagem.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        jTextFieldMensagem.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldMensagemActionPerformed(evt);
-            }
-        });
-
         jTextFieldPorta.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
 
         jLabelPorta.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         jLabelPorta.setText("Porta: ");
-
-        jLabelMensagem.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        jLabelMensagem.setText("Mensagem: ");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(6, 6, 6)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jLabelPorta)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextFieldPorta, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(53, 53, 53)
-                        .addComponent(jButtonConfirmar))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabelMensagem)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextFieldMensagem, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap()
+                .addComponent(jLabelPorta)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jTextFieldPorta, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
+                .addComponent(jButtonConfirmar)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -88,24 +68,16 @@ public class JanelaServidor extends javax.swing.JFrame {
                     .addComponent(jTextFieldPorta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabelPorta)
                     .addComponent(jButtonConfirmar))
-                .addGap(27, 27, 27)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextFieldMensagem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabelMensagem))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextFieldMensagemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldMensagemActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldMensagemActionPerformed
-
     private void jButtonConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonConfirmarActionPerformed
         if ((evt.getSource()== jButtonConfirmar ) && (!jTextFieldPorta.getText().equals(""))){
             try {
-                new Servidor(Integer.valueOf(jTextFieldPorta.getText()), jTextFieldMensagem.getText());
+                new Servidor(Integer.valueOf(jTextFieldPorta.getText()));
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(null, "Ocorreu um erro...");
                 Logger.getLogger(JanelaServidor.class.getName()).log(Level.SEVERE, null, ex);
@@ -151,9 +123,7 @@ public class JanelaServidor extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonConfirmar;
-    private javax.swing.JLabel jLabelMensagem;
     private javax.swing.JLabel jLabelPorta;
-    private javax.swing.JTextField jTextFieldMensagem;
     private javax.swing.JTextField jTextFieldPorta;
     // End of variables declaration//GEN-END:variables
   
