@@ -1,8 +1,8 @@
 package servidor;
 
-import java.awt.event.ActionEvent;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.swing.JOptionPane;
 
 /**
@@ -35,7 +35,7 @@ public class JanelaServidor extends javax.swing.JFrame {
         setTitle("Servidor");
 
         jButtonConfirmar.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        jButtonConfirmar.setText("Confirmar");
+        jButtonConfirmar.setText("Conectar");
         jButtonConfirmar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonConfirmarActionPerformed(evt);
@@ -56,7 +56,7 @@ public class JanelaServidor extends javax.swing.JFrame {
                 .addComponent(jLabelPorta)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTextFieldPorta, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
                 .addComponent(jButtonConfirmar)
                 .addContainerGap())
         );
@@ -77,9 +77,10 @@ public class JanelaServidor extends javax.swing.JFrame {
     private void jButtonConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonConfirmarActionPerformed
         if ((evt.getSource()== jButtonConfirmar ) && (!jTextFieldPorta.getText().equals(""))){
             try {
+            	
                 new Servidor(Integer.valueOf(jTextFieldPorta.getText()));
+                
             } catch (Exception ex) {
-                JOptionPane.showMessageDialog(null, "Ocorreu um erro...");
                 Logger.getLogger(JanelaServidor.class.getName()).log(Level.SEVERE, null, ex);
             }
                 
